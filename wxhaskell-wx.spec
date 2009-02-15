@@ -8,18 +8,30 @@
 
 %define oname	wxhaskell
 
+%define rel	1
+%define darcs	20090214
+%if %darcs
+%define release		%mkrel 0.%{darcs}.%{rel}
+%define distname	%{oname}-%{darcs}.tar.lzma
+%define dirname		%{oname}
+%else
+%define release		%mkrel %{rel}
+%define distname	%{oname}-src-%{version}.zip
+%define dirname		%{oname}-%{version}
+%endif
+
 %define ghc_version	%(rpm -q ghc | cut -d- -f2)
 
 Summary:	wxWindows Haskell binding
 Name:		%{oname}-wx
-Version:	0.10.3
-Release: 	%{mkrel 1}
+Version:	0.11.1
+Release: 	%{release}
 License:	wxWidgets
 Group: 		Development/Other
 URL: 		http://wxhaskell.sourceforge.net
-Source0: 	http://downloads.sourgeforge.net/%{oname}/%{oname}-src-%{version}.zip
+Source0: 	http://downloads.sourgeforge.net/%{oname}/%{distname}
 BuildRequires:	ghc
-BuildRequires:	wxgtku2.6-devel
+BuildRequires:	wxgtku-devel
 BuildRequires:	wxhaskell == %{version}
 BuildRequires:	haskell-wxcore == %{version}
 #BuildRequires:	haskell-macros
@@ -45,9 +57,12 @@ This package contains the wxhaskell package for ghc.
 %define wxdir %{_libdir}/ghc-%{ghc_version}/wx
 
 %prep
-%setup -q -n %{oname}-%{version}
+%setup -q -n %{dirname}
 
 %build
+%if %darcs
+chmod 0755 configure
+%endif
 ./configure --hc=ghc-%{ghc_version} --hcpkg=ghc-pkg-%{ghc_version} --libdir=%{wxdir} --with-opengl --wx-config=wx-config-unicode
 make wx
 
