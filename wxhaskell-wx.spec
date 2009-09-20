@@ -8,7 +8,7 @@
 
 %define oname	wxhaskell
 
-%define rel	1
+%define rel	2
 %define darcs	20090214
 %if %darcs
 %define release		%mkrel 0.%{darcs}.%{rel}
