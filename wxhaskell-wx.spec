@@ -28,7 +28,7 @@ Version:	0.11.1
 Release: 	%{release}
 License:	wxWidgets
 Group: 		Development/Other
-URL: 		http://wxhaskell.sourceforge.net
+URL: 		https://wxhaskell.sourceforge.net
 Source0: 	http://downloads.sourgeforge.net/%{oname}/%{distname}
 BuildRequires:	ghc
 BuildRequires:	wxgtku-devel
